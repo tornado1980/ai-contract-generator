@@ -592,7 +592,8 @@ export default function ContractGeneratorProMax() {
 
       const imgData = canvas.toDataURL('image/jpeg', 0.98);
 
-      const pdf = new jsPDF('p', 'mm', 'a4');
+      // ИСПРАВЛЕНИЕ ТИПА ОРИЕНТАЦИИ (ДЛЯ УСПЕШНОЙ СБОРКИ НА VERCEL)
+      const pdf = new jsPDF('p' as any, 'mm', 'a4');
       const pdfWidth = pdf.internal.pageSize.getWidth();
       const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
 
