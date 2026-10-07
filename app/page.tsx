@@ -156,7 +156,7 @@ const translations: Record<'en' | 'ru', Translations> = {
       forward: 'Secure Escrow Safe Deposit Guarantee',
     },
     paymentMethods: {
-      gumroad: 'Gumroad (Visa/Mastercard, PayPal, Apple Pay, Google Pay - FOP Ukraine ready)[span_2](start_span)[span_2](end_span)',
+      gumroad: 'Gumroad (Visa/Mastercard, PayPal, Apple Pay, Google Pay - FOP Ukraine ready)',
       crypto: 'Cryptocurrency (USDT TRC20 / USDC / Ethereum / Bitcoin)',
       wire: 'International Direct Wire Transfer SWIFT / SEPA',
     },
@@ -223,7 +223,7 @@ const translations: Record<'en' | 'ru', Translations> = {
     copy: 'Скопировать весь текст',
     downloadTxt: 'Сохранить как TXT',
     downloadPdf: 'Экспорт в чистый PDF (Формат А4 Enterprise)',
- payButton: 'Оплатить тариф и разблокировать экспорт (через Gumroad)[span_3](start_span)[span_3](end_span)',
+ payButton: 'Оплатить тариф и разблокировать экспорт (через Gumroad)',
     disclaimerBanner: '⚠️ ПРАВОВОЙ ДИСКЛЕЙМЕР ENTERPRISE: Веб-платформа функционирует исключительно как автоматизированный IT-инструмент для составления информационных проектов и драфтов. Разработчики не предоставляют юридических услуг и не несут ответственности за исходы судебных или коммерческих споров.',
     agreementText: 'Я подтверждаю, что ознакомлен(а) с регламентом сервиса, осознаю информационный характер шаблона и согласен(-на) с полным снятием ответственности с авторов платформы.',
     agreementError: 'Пожалуйста, поставьте обязательную галочку в чекбоксе согласия с условиями использования и дисклеймером.',
@@ -266,14 +266,14 @@ const translations: Record<'en' | 'ru', Translations> = {
       forward: 'Безопасная сделка через Эскроу-счет (Escrow / Safe Deposit)',
     },
     paymentMethods: {
-      gumroad: 'Gumroad (Карты Visa/Mastercard, PayPal, Apple/Google Pay — отлично для ФОП в Украине)[span_4](start_span)[span_4](end_span)',
+      gumroad: 'Gumroad (Карты Visa/Mastercard, PayPal, Apple/Google Pay — отлично для ФОП в Украине)',
       crypto: 'Криптовалюта (USDT TRC20 / USDC / Ethereum / Bitcoin)',
       wire: 'Международный прямой банковский перевод SWIFT / SEPA',
     },
     pricingPlans: {
       single: { name: '1 Разовый контракт', basePrice: 4.99, desc: 'Оптимально для проверки сделки с новым клиентом' },
- pack: { name: 'Пакет 5 документов', basePrice: 15.99, desc: 'Экономия 35% для регулярной работы на фрилансе' },
-      subscription: { name: 'PRO Безлимит (Месяц)', basePrice: 24.99, isSub: true, desc: 'Неограниченный доступ ко всем шаблонам и базам знаний' },
+      pack: { name: 'Пакет 5 документов', basePrice: 15.99, desc: 'Экономия 35% для регулярной работы на фрилансе' },
+ subscription: { name: 'PRO Безлимит (Месяц)', basePrice: 24.99, isSub: true, desc: 'Неограниченный доступ ко всем шаблонам и базам знаний' },
     },
     featuresList: [
       { title: 'Fullstack & Backend', desc: 'Защита интеллектуальных прав на код, регламенты передачи баз данных и серверов.', icon: '⚡' },
@@ -292,7 +292,7 @@ const translations: Record<'en' | 'ru', Translations> = {
       },
       { 
         q: 'Как работает скачивание готового PDF в формате А4?', 
-        a: 'После оплаты тарифа через Gumroad разблокируется функция чистого экспорта[span_5](start_span)[span_5](end_span). Система автоматически форматирует документ под стандартный лист А4 с правильными отступами, исключая водяные знаки, что позволяет сразу отправить его клиенту или распечатать.' 
+        a: 'После оплаты тарифа через Gumroad разблокируется функция чистого экспорта. Система автоматически форматирует документ под стандартный лист А4 с правильными отступами, исключая водяные знаки, что позволяет сразу отправить его клиенту или распечатать.' 
       },
       { 
         q: 'Что делать, если клиент задерживает оплату или требует правки сверх ТЗ?', 
@@ -300,7 +300,7 @@ const translations: Record<'en' | 'ru', Translations> = {
       },
       { 
         q: 'Можно ли использовать договор для работы с зарубежными заказчиками (Upwork, Fiverr)?', 
-        a: 'Да, генератор поддерживает переключение на английский язык, расчеты в USD, EUR, GBP и международные стандарты контрактов, включая возможность указания зарубежной подсудности и безопасные способы оплаты через Gumroad[span_6](start_span)[span_6](end_span).' 
+        a: 'Да, генератор поддерживает переключение на английский язык, расчеты в USD, EUR, GBP и международные стандарты контрактов, включая возможность указания зарубежной подсудности и безопасные способы оплаты через Gumroad.' 
       }
     ],
     reviewsList: [
@@ -324,11 +324,11 @@ export default function ContractGeneratorProMax() {
   const t = translations[lang];
 
   const [clientName, setClientName] = useState('');
- const [contractorName, setContractorName] = useState('');
+  const [contractorName, setContractorName] = useState('');
   const [city, setCity] = useState(''); 
   const [contractType, setContractType] = useState('standard');
   const [paymentTerms, setPaymentTerms] = useState('advance50');
-  const [startDate, setStartDate] = useState('2026-12-12');
+ const [startDate, setStartDate] = useState('2026-12-12');
   const [endDate, setEndDate] = useState('2026-12-30');
   const [amount, setAmount] = useState('7500');
   const [currency, setCurrency] = useState<'USD' | 'EUR' | 'GBP'>('USD');
@@ -422,13 +422,13 @@ export default function ContractGeneratorProMax() {
       addToast(t.agreementError, 'warning');
       return;
     }
- setIsLoading(true);
+
+    setIsLoading(true);
     setTimeout(() => {
       const cType = t.contractTypes[contractType] || contractType;
       const pTerms = t.paymentMethodsList[paymentTerms] || paymentTerms;
       const pMethod = t.paymentMethods[paymentMethod] || paymentMethod;
-      
-      const client = clientName || (lang === 'ru' ? 'ООО Заказчик Про Экстерпрайз' : 'Client Corp Enterprise Max');
+ const client = clientName || (lang === 'ru' ? 'ООО Заказчик Про Экстерпрайз' : 'Client Corp Enterprise Max');
       const contractor = contractorName || (lang === 'ru' ? 'ИП Подрядчик Эксперт Архитектор' : 'Specialist Contractor Pro Lead');
       
       const cityName = city.trim() ? city.trim() : '';
@@ -473,10 +473,10 @@ export default function ContractGeneratorProMax() {
         fullText = 
           'MASTER PROFESSIONAL SERVICES AGREEMENT № 2026/ENTERPRISE-MAX\n' +
           (cityName ? 'City: ' + cityName + '                                        ' : '') + 'Date: ' + startD + '\n\n' +
- 'Client: ' + client + ', on the one hand, and\n' +
+          'Client: ' + client + ', on the one hand, and\n' +
           'Contractor: ' + contractor + ', on the other hand, collectively referred to as the Parties, hereby enter into this Agreement:\n\n' +
           'SECTION I. SUBJECT MATTER AND SCOPE OF WORK\n' +
-          '1.1. Contractor undertakes to provide professional services according to client specifications: ' + cType + '.\n' +
+ '1.1. Contractor undertakes to provide professional services according to client specifications: ' + cType + '.\n' +
           '1.2. Project schedule and milestones:\n' +
           '   - Project official start date: ' + startD + '\n' +
           '   - Project completion and final acceptance date: ' + endD + '\n' +
@@ -549,10 +549,11 @@ export default function ContractGeneratorProMax() {
       addToast(lang === 'ru' ? 'TXT файл успешно скачан!' : 'TXT file downloaded successfully!');
     }
   };
- const handleDownloadPDF = async () => {
+
+  const handleDownloadPDF = async () => {
     if (!isPaid) {
       const msg = lang === 'ru' ? 'Пожалуйста, оплатите тариф для разблокировки чистого PDF экспорта без водяных знаков.' : 'Please complete payment to unlock clean PDF export without watermarks.';
-      alert(msg);
+ alert(msg);
       addToast(msg, 'warning');
       return;
     }
@@ -617,7 +618,6 @@ export default function ContractGeneratorProMax() {
     }
   };
   
-  // ИСПРАВЛЕННЫЙ МЕТОД ОПЛАТЫ ЧЕРЕЗ GUMROAD ДЛЯ ВСЕХ ВИДОВ ОПЛАТЫ
   const handleProceedPayment = () => {
     if (startDate && endDate && new Date(endDate) < new Date(startDate)) {
       const dateErrorMsg = lang === 'ru' 
@@ -634,18 +634,17 @@ export default function ContractGeneratorProMax() {
       return;
     }
 
-    // Независимо от выбранного метода (Gumroad, Crypto, Wire), направляем на Gumroad (reymax77777@gmail.com)[span_7](start_span)[span_7](end_span)
     const currentUrl = window.location.origin + window.location.pathname;
     const redirectUrl = encodeURIComponent(currentUrl + '?paid=true');
     const planSlug = selectedPlan === 'single' ? 'single-contract' : selectedPlan === 'pack' ? '5-pack-contracts' : 'pro-subscription';
     
-    // Прямая ссылка на ваш Gumroad с автоматическим редиректом обратно на сайт после оплаты
     const gumroadUrl = 'https://reymax77777.gumroad.com/l/' + planSlug + '?wanted=true&redirect_url=' + redirectUrl;
     
     addToast(lang === 'ru' ? 'Перенаправление на безопасную оплату Gumroad...' : 'Redirecting to secure Gumroad checkout...', 'info');
     window.location.href = gumroadUrl;
   };
- const handleAddReview = (e: React.FormEvent) => {
+
+  const handleAddReview = (e: React.FormEvent) => {
     e.preventDefault();
     if (!newReviewName.trim() || !newReviewText.trim()) return;
     const newRev: ReviewItem = {
@@ -661,8 +660,7 @@ export default function ContractGeneratorProMax() {
     setNewReviewText('');
     addToast(lang === 'ru' ? 'Спасибо! Ваш отзыв опубликован.' : 'Thank you! Your review has been published.');
   };
-
-  const handleSupportSubmit = (e: React.FormEvent) => {
+ const handleSupportSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!supportEmail.trim() || !supportMsg.trim()) return;
     setSupportSent(true);
@@ -723,7 +721,8 @@ export default function ContractGeneratorProMax() {
         </div>
 
         <p className="text-slate-300 mb-12 text-base md:text-lg font-medium leading-relaxed max-w-4xl">{t.subtitle}</p>
- <div className="mb-14">
+
+        <div className="mb-14">
           <h2 className="text-xs font-bold mb-4 text-cyan-400 uppercase tracking-widest">{t.featuresHeader}</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-5">
             {t.featuresList.map((item, idx) => (
@@ -737,8 +736,7 @@ export default function ContractGeneratorProMax() {
             ))}
           </div>
         </div>
-
-        <div className="mb-14 bg-slate-900/80 p-6 md:p-10 rounded-3xl border border-cyan-500/20 shadow-2xl backdrop-blur-xl">
+ <div className="mb-14 bg-slate-900/80 p-6 md:p-10 rounded-3xl border border-cyan-500/20 shadow-2xl backdrop-blur-xl">
           <h2 className="text-lg md:text-xl font-bold text-cyan-400 mb-2 flex items-center gap-3">
             <span>👁️</span> {t.previewHeader}
           </h2>
@@ -779,7 +777,7 @@ export default function ContractGeneratorProMax() {
                     'p-6 rounded-3xl border transition cursor-pointer flex flex-col justify-between ' +
                     (isSelected
                       ? 'bg-cyan-950/80 border-cyan-400 shadow-2xl shadow-cyan-950/60 scale-[1.02]'
- : 'bg-slate-900/50 border-slate-800 hover:border-slate-700')
+                      : 'bg-slate-900/50 border-slate-800 hover:border-slate-700')
                   }
                 >
                   <div>
@@ -797,8 +795,7 @@ export default function ContractGeneratorProMax() {
             })}
           </div>
         </div>
-
-        <form onSubmit={handleGenerate} className="space-y-8 bg-slate-900/80 p-6 md:p-12 rounded-3xl border border-cyan-500/20 shadow-2xl backdrop-blur-xl">
+ <form onSubmit={handleGenerate} className="space-y-8 bg-slate-900/80 p-6 md:p-12 rounded-3xl border border-cyan-500/20 shadow-2xl backdrop-blur-xl">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
               <label className="block text-xs font-semibold mb-2 text-white">{t.clientName}</label>
@@ -851,7 +848,7 @@ export default function ContractGeneratorProMax() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div>
- <label className="block text-xs font-semibold mb-2 text-white">{t.city}</label>
+              <label className="block text-xs font-semibold mb-2 text-white">{t.city}</label>
               <input
                 type="text"
                 value={city}
@@ -868,7 +865,7 @@ export default function ContractGeneratorProMax() {
                 onChange={(e) => setStartDate(e.target.value)}
                 className="w-full bg-white text-slate-900 border border-slate-300 rounded-2xl p-4 focus:border-cyan-500 outline-none transition font-mono text-sm font-medium cursor-pointer"
               />
-            </div>
+ </div>
             <div>
               <label className="block text-xs font-semibold mb-2 text-white">{t.endDate}</label>
               <input
@@ -928,7 +925,7 @@ export default function ContractGeneratorProMax() {
                     className={
                       'p-4 rounded-2xl border text-left font-medium transition flex items-center justify-between cursor-pointer ' +
                       (isSelected
- ? 'bg-gradient-to-r ' + card.color + ' border-white shadow-xl text-white scale-[1.01]'
+                        ? 'bg-gradient-to-r ' + card.color + ' border-white shadow-xl text-white scale-[1.01]'
                         : 'bg-white text-slate-800 border-slate-300 hover:bg-slate-50')
                     }
                   >
@@ -947,7 +944,7 @@ export default function ContractGeneratorProMax() {
               <label className="block text-xs font-semibold mb-2 text-white">{t.amount}</label>
               <input
                 type="text"
-                value={amount}
+ value={amount}
                 onChange={(e) => setAmount(e.target.value)}
                 placeholder={t.amountPlaceholder}
                 className="w-full bg-white text-slate-900 border border-slate-300 rounded-2xl p-4 placeholder-slate-400 focus:border-cyan-500 outline-none transition text-sm font-medium"
@@ -997,7 +994,7 @@ export default function ContractGeneratorProMax() {
                 className="flex-1 bg-gradient-to-r from-orange-500 via-rose-600 to-red-600 hover:from-orange-400 text-white font-extrabold py-5 px-6 rounded-2xl shadow-2xl transition-all uppercase tracking-wider text-sm cursor-pointer disabled:opacity-50"
               >
                 {isLoading ? (lang === 'ru' ? 'Генерация контракта...' : 'Generating contract...') : t.generate}
- </button>
+              </button>
               <button
                 type="button"
                 onClick={handleClear}
@@ -1016,7 +1013,7 @@ export default function ContractGeneratorProMax() {
                 <span>📄</span> {t.contractTitle} {!isPaid && '🔒'}
               </h2>
               <span className={'px-4 py-1.5 rounded-full text-xs font-bold ' + (isPaid ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40' : 'bg-amber-500/20 text-amber-300 border border-amber-500/40')}>
-                {isPaid ? (lang === 'ru' ? '✅ Оплачено / Формат А4 Активен' : '✅ Paid / A4 Format Active') : (lang === 'ru' ? '⚠️ Драфт / Водяной знак' : '⚠ Draft Preview Mode')}
+ {isPaid ? (lang === 'ru' ? '✅ Оплачено / Формат А4 Активен' : '✅ Paid / A4 Format Active') : (lang === 'ru' ? '⚠️ Драфт / Водяной знак' : '⚠ Draft Preview Mode')}
               </span>
             </div>
             
@@ -1069,7 +1066,7 @@ export default function ContractGeneratorProMax() {
         {savedHistory.length > 0 && (
           <div className="mt-14 bg-slate-900/60 p-6 md:p-10 rounded-3xl border border-cyan-500/20 backdrop-blur-xl">
             <h2 className="text-lg font-bold mb-6 text-cyan-400 flex items-center gap-2">
- <span>⏱</span> {t.historyHeader}
+              <span>⏱</span> {t.historyHeader}
             </h2>
             <div className="space-y-4">
               {savedHistory.map((item) => (
@@ -1089,8 +1086,7 @@ export default function ContractGeneratorProMax() {
             </div>
           </div>
         )}
-
-        <div className="mt-16">
+ <div className="mt-16">
           <h2 className="text-xs font-bold mb-6 text-cyan-400 uppercase tracking-widest">{t.reviewsHeader}</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
             {allReviews.map((rev, i) => (
@@ -1143,7 +1139,7 @@ export default function ContractGeneratorProMax() {
         </div>
 
         <footer className="mt-20 pt-10 border-t border-cyan-500/20 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-400 pb-16 gap-6">
- <div>{t.rights}</div>
+          <div>{t.rights}</div>
           <div className="flex gap-6">
             <button onClick={() => setModalContent(t.privacy)} className="hover:text-cyan-400 transition cursor-pointer">{t.privacy}</button>
             <button onClick={() => setModalContent(t.terms)} className="hover:text-cyan-400 transition cursor-pointer">{t.terms}</button>
@@ -1158,7 +1154,7 @@ export default function ContractGeneratorProMax() {
                 <div>
                   <h3 className="text-xl font-bold text-cyan-400 mb-4">{t.supportFormTitle}</h3>
                   {supportSent ? (
-                    <div className="bg-emerald-950/60 border border-emerald-500 text-emerald-200 p-4 rounded-2xl text-xs mb-6 text-center">
+ <div className="bg-emerald-950/60 border border-emerald-500 text-emerald-200 p-4 rounded-2xl text-xs mb-6 text-center">
                       {lang === 'ru' ? '✅ Ваше сообщение успешно отправлено! Мы ответим на email reymax77777@gmail.com в течение 15 минут.' : '✅ Message sent successfully! We will reply within 15 minutes.'}
                     </div>
                   ) : (
