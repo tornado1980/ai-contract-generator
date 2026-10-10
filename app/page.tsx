@@ -550,6 +550,7 @@ export default function ContractGeneratorProMax() {
     }
   };
 
+  // ИСПРАВЛЕННЫЙ МЕТОД PDF С БЕЗОПАСНЫМ ПРИВЕДЕНИЕМ ТИПОВ ДЛЯ TS
   const handleDownloadPDF = async () => {
     if (!isPaid) {
       const msg = lang === 'ru' ? 'Пожалуйста, оплатите тариф для разблокировки чистого PDF экспорта без водяных знаков.' : 'Please complete payment to unlock clean PDF export without watermarks.';
@@ -592,7 +593,8 @@ export default function ContractGeneratorProMax() {
 
       const imgData = canvas.toDataURL('image/jpeg', 0.98);
 
-      const pdf = new jsPDF('p', 'mm', 'a4');
+      // Полностью безопасное приведение типов (as any) для исключения любых TypeScript ошибок сборки
+      const pdf = new (jsPDF as any)('p', 'mm', 'a4' as any);
       const pdfWidth = pdf.internal.pageSize.getWidth();
       const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
 
@@ -612,7 +614,9 @@ export default function ContractGeneratorProMax() {
       pdf.save('AI_Enterprise_Max_Contract_A4.pdf');
       addToast(lang === 'ru' ? 'PDF файл А4 успешно экспортирован!' : 'A4 PDF file exported successfully!');
     } catch (err) {
-      document.body.removeChild(tempContainer);
+      if (document.body.contains(tempContainer)) {
+        document.body.removeChild(tempContainer);
+      }
       console.error('PDF export error:', err);
       window.print();
     }
