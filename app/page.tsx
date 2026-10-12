@@ -79,6 +79,9 @@ interface Translations {
   supportEmailPlaceholder: string;
   supportMsgPlaceholder: string;
   supportSubmitBtn: string;
+  modalInfoText: string;
+  modalSupportContact: string;
+  closeWindowBtn: string;
   contractTypes: Record<string, string>;
   paymentMethodsList: Record<string, string>;
   paymentMethods: Record<string, string>;
@@ -139,6 +142,9 @@ const translations: Record<'en' | 'ru', Translations> = {
     supportEmailPlaceholder: 'Your contact email',
     supportMsgPlaceholder: 'Describe your issue or question...',
     supportSubmitBtn: 'Send Message to Support',
+    modalInfoText: 'All legal data processing and payment information workflows of the AI Freelance Contract Generator Pro Max Enterprise service comply with strict international security regulations (GDPR, CCPA, PCI DSS).',
+    modalSupportContact: 'For any legal or technical inquiries, please contact support:',
+    closeWindowBtn: 'Close window',
     contractTypes: {
       standard: 'Standard Web Development Services Agreement (Fullstack / Dev)',
       long: 'Long-term Retainer & Support Agreement',
@@ -168,9 +174,9 @@ const translations: Record<'en' | 'ru', Translations> = {
     featuresList: [
       { title: 'Fullstack & Backend', desc: 'Secure intellectual property rights, database access handovers, source codes.', icon: '⚡' },
       { title: 'UI/UX & Product Design', desc: 'Strict limits on design iterations, Figma source file handovers.', icon: '🎨' },
-      { title: 'Copywriting & Content', desc: 'Text uniqueness guarantees, character counts, proofreading schedules.', icon: '✍️' },
+ { title: 'Copywriting & Content', desc: 'Text uniqueness guarantees, character counts, proofreading schedules.', icon: '✍️' },
       { title: 'Marketing & Target', desc: 'Ad budget KPIs, reach targets, conversion metrics, performance reporting.', icon: '📊' },
- ],
+    ],
     faqList: [
       { 
         q: 'Do I need to register an account or provide ID documents?', 
@@ -218,12 +224,12 @@ const translations: Record<'en' | 'ru', Translations> = {
     paymentHeader: 'Платежный шлюз для проведения безопасных транзакций',
     pricingHeader: 'Масштабные тарифные планы доступа к генератору',
     generate: 'Сгенерировать полный юридический контракт',
-    clear: 'Сбросить все поля формы',
+ clear: 'Сбросить все поля формы',
     contractTitle: 'Официальный текст готового контракта (Формат А4)',
     copy: 'Скопировать весь текст',
     downloadTxt: 'Сохранить как TXT',
     downloadPdf: 'Экспорт в чистый PDF (Формат А4 Enterprise)',
- payButton: 'Оплатить тариф и разблокировать экспорт (через Gumroad)',
+    payButton: 'Оплатить тариф и разблокировать экспорт (через Gumroad)',
     disclaimerBanner: '⚠️ ПРАВОВОЙ ДИСКЛЕЙМЕР ENTERPRISE: Веб-платформа функционирует исключительно как автоматизированный IT-инструмент для составления информационных проектов и драфтов. Разработчики не предоставляют юридических услуг и не несут ответственности за исходы судебных или коммерческих споров.',
     agreementText: 'Я подтверждаю, что ознакомлен(а) с регламентом сервиса, осознаю информационный характер шаблона и согласен(-на) с полным снятием ответственности с авторов платформы.',
     agreementError: 'Пожалуйста, поставьте обязательную галочку в чекбоксе согласия с условиями использования и дисклеймером.',
@@ -249,6 +255,9 @@ const translations: Record<'en' | 'ru', Translations> = {
     supportEmailPlaceholder: 'Ваш контактный Email',
     supportMsgPlaceholder: 'Опишите ваш вопрос или проблему...',
     supportSubmitBtn: 'Отправить сообщение в поддержку',
+    modalInfoText: 'Все процессы обработки юридических данных и платежной информации сервиса AI Freelance Contract Generator Pro Max Enterprise соответствуют строгим международным регламентам безопасности (GDPR, CCPA, PCI DSS).',
+    modalSupportContact: 'По любым юридическим или техническим вопросам обращайтесь в службу поддержки:',
+    closeWindowBtn: 'Закрыть окно',
     contractTypes: {
       standard: 'Стандартный договор оказания услуг веб-разработки (Fullstack / Dev)',
       long: 'Длительный контракт на абонентское сопровождение (Retainer Agreement)',
@@ -262,7 +271,7 @@ const translations: Record<'en' | 'ru', Translations> = {
     paymentMethodsList: {
       advance50: '50% аванс перед стартом, 50% по итогам финальной приемки',
       advance100: '100% предоплата (Full Upfront Payment)',
-      postpaid: 'Поэтапная оплата по результатам сдачи каждого спринта (Sprint-based)',
+ postpaid: 'Поэтапная оплата по результатам сдачи каждого спринта (Sprint-based)',
       forward: 'Безопасная сделка через Эскроу-счет (Escrow / Safe Deposit)',
     },
     paymentMethods: {
@@ -273,7 +282,7 @@ const translations: Record<'en' | 'ru', Translations> = {
     pricingPlans: {
       single: { name: '1 Разовый контракт', basePrice: 4.99, desc: 'Оптимально для проверки сделки с новым клиентом' },
       pack: { name: 'Пакет 5 документов', basePrice: 15.99, desc: 'Экономия 35% для регулярной работы на фрилансе' },
- subscription: { name: 'PRO Безлимит (Месяц)', basePrice: 24.99, isSub: true, desc: 'Неограниченный доступ ко всем шаблонам и базам знаний' },
+      subscription: { name: 'PRO Безлимит (Месяц)', basePrice: 24.99, isSub: true, desc: 'Неограниченный доступ ко всем шаблонам и базам знаний' },
     },
     featuresList: [
       { title: 'Fullstack & Backend', desc: 'Защита интеллектуальных прав на код, регламенты передачи баз данных и серверов.', icon: '⚡' },
@@ -318,8 +327,7 @@ const paymentCards = [
 ];
 
 const pricingKeys = ['single', 'pack', 'subscription'] as const;
-
-export default function ContractGeneratorProMax() {
+ export default function ContractGeneratorProMax() {
   const [lang, setLang] = useState<'en' | 'ru'>('en');
   const t = translations[lang];
 
@@ -328,7 +336,7 @@ export default function ContractGeneratorProMax() {
   const [city, setCity] = useState(''); 
   const [contractType, setContractType] = useState('standard');
   const [paymentTerms, setPaymentTerms] = useState('advance50');
- const [startDate, setStartDate] = useState('2026-12-12');
+  const [startDate, setStartDate] = useState('2026-12-12');
   const [endDate, setEndDate] = useState('2026-12-30');
   const [amount, setAmount] = useState('7500');
   const [currency, setCurrency] = useState<'USD' | 'EUR' | 'GBP'>('USD');
@@ -416,8 +424,7 @@ export default function ContractGeneratorProMax() {
       addToast(dateErrorMsg, 'warning');
       return;
     }
-
-    if (!isAgreed) {
+ if (!isAgreed) {
       alert(t.agreementError);
       addToast(t.agreementError, 'warning');
       return;
@@ -428,7 +435,7 @@ export default function ContractGeneratorProMax() {
       const cType = t.contractTypes[contractType] || contractType;
       const pTerms = t.paymentMethodsList[paymentTerms] || paymentTerms;
       const pMethod = t.paymentMethods[paymentMethod] || paymentMethod;
- const client = clientName || (lang === 'ru' ? 'ООО Заказчик Про Экстерпрайз' : 'Client Corp Enterprise Max');
+      const client = clientName || (lang === 'ru' ? 'ООО Заказчик Про Экстерпрайз' : 'Client Corp Enterprise Max');
       const contractor = contractorName || (lang === 'ru' ? 'ИП Подрядчик Эксперт Архитектор' : 'Specialist Contractor Pro Lead');
       
       const cityName = city.trim() ? city.trim() : '';
@@ -472,11 +479,11 @@ export default function ContractGeneratorProMax() {
       } else {
         fullText = 
           'MASTER PROFESSIONAL SERVICES AGREEMENT № 2026/ENTERPRISE-MAX\n' +
-          (cityName ? 'City: ' + cityName + '                                        ' : '') + 'Date: ' + startD + '\n\n' +
+ (cityName ? 'City: ' + cityName + '                                        ' : '') + 'Date: ' + startD + '\n\n' +
           'Client: ' + client + ', on the one hand, and\n' +
           'Contractor: ' + contractor + ', on the other hand, collectively referred to as the Parties, hereby enter into this Agreement:\n\n' +
           'SECTION I. SUBJECT MATTER AND SCOPE OF WORK\n' +
- '1.1. Contractor undertakes to provide professional services according to client specifications: ' + cType + '.\n' +
+          '1.1. Contractor undertakes to provide professional services according to client specifications: ' + cType + '.\n' +
           '1.2. Project schedule and milestones:\n' +
           '   - Project official start date: ' + startD + '\n' +
           '   - Project completion and final acceptance date: ' + endD + '\n' +
@@ -549,11 +556,10 @@ export default function ContractGeneratorProMax() {
       addToast(lang === 'ru' ? 'TXT файл успешно скачан!' : 'TXT file downloaded successfully!');
     }
   };
-
-  const handleDownloadPDF = async () => {
+ const handleDownloadPDF = async () => {
     if (!isPaid) {
       const msg = lang === 'ru' ? 'Пожалуйста, оплатите тариф для разблокировки чистого PDF экспорта без водяных знаков.' : 'Please complete payment to unlock clean PDF export without watermarks.';
- alert(msg);
+      alert(msg);
       addToast(msg, 'warning');
       return;
     }
@@ -652,7 +658,7 @@ export default function ContractGeneratorProMax() {
       role: lang === 'ru' ? 'Независимый эксперт' : 'Independent Expert',
       text: newReviewText,
       rating: '⭐⭐⭐⭐⭐'
-    };
+ };
     const updated = [newRev, ...customReviews];
     setCustomReviews(updated);
     localStorage.setItem('ai_contract_reviews_max_enterprise', JSON.stringify(updated));
@@ -660,7 +666,8 @@ export default function ContractGeneratorProMax() {
     setNewReviewText('');
     addToast(lang === 'ru' ? 'Спасибо! Ваш отзыв опубликован.' : 'Thank you! Your review has been published.');
   };
- const handleSupportSubmit = (e: React.FormEvent) => {
+
+  const handleSupportSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!supportEmail.trim() || !supportMsg.trim()) return;
     setSupportSent(true);
@@ -725,7 +732,7 @@ export default function ContractGeneratorProMax() {
         <div className="mb-14">
           <h2 className="text-xs font-bold mb-4 text-cyan-400 uppercase tracking-widest">{t.featuresHeader}</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-5">
-            {t.featuresList.map((item, idx) => (
+ {t.featuresList.map((item, idx) => (
               <div key={idx} className="bg-slate-900/70 border border-cyan-500/20 p-6 rounded-3xl backdrop-blur-md flex flex-col justify-between shadow-2xl hover:border-cyan-400/40 transition">
                 <span className="text-4xl mb-4">{item.icon}</span>
                 <div>
@@ -736,7 +743,8 @@ export default function ContractGeneratorProMax() {
             ))}
           </div>
         </div>
- <div className="mb-14 bg-slate-900/80 p-6 md:p-10 rounded-3xl border border-cyan-500/20 shadow-2xl backdrop-blur-xl">
+
+        <div className="mb-14 bg-slate-900/80 p-6 md:p-10 rounded-3xl border border-cyan-500/20 shadow-2xl backdrop-blur-xl">
           <h2 className="text-lg md:text-xl font-bold text-cyan-400 mb-2 flex items-center gap-3">
             <span>👁️</span> {t.previewHeader}
           </h2>
@@ -781,7 +789,7 @@ export default function ContractGeneratorProMax() {
                   }
                 >
                   <div>
-                    <div className="flex justify-between items-center mb-4">
+ <div className="flex justify-between items-center mb-4">
                       <span className="font-bold text-sm text-white">{plan.name}</span>
                       <span className={'w-6 h-6 rounded-full border flex items-center justify-center ' + (isSelected ? 'border-cyan-400 bg-cyan-400' : 'border-slate-600')}>
                         {isSelected && <span className="w-2.5 h-2.5 rounded-full bg-slate-950"></span>}
@@ -795,7 +803,8 @@ export default function ContractGeneratorProMax() {
             })}
           </div>
         </div>
- <form onSubmit={handleGenerate} className="space-y-8 bg-slate-900/80 p-6 md:p-12 rounded-3xl border border-cyan-500/20 shadow-2xl backdrop-blur-xl">
+
+        <form onSubmit={handleGenerate} className="space-y-8 bg-slate-900/80 p-6 md:p-12 rounded-3xl border border-cyan-500/20 shadow-2xl backdrop-blur-xl">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
               <label className="block text-xs font-semibold mb-2 text-white">{t.clientName}</label>
@@ -851,7 +860,7 @@ export default function ContractGeneratorProMax() {
               <label className="block text-xs font-semibold mb-2 text-white">{t.city}</label>
               <input
                 type="text"
-                value={city}
+ value={city}
                 onChange={(e) => setCity(e.target.value)}
                 placeholder={t.cityPlaceholder}
                 className="w-full bg-white text-slate-900 border border-slate-300 rounded-2xl p-4 placeholder-slate-400 focus:border-cyan-500 outline-none transition text-sm font-medium"
@@ -865,7 +874,7 @@ export default function ContractGeneratorProMax() {
                 onChange={(e) => setStartDate(e.target.value)}
                 className="w-full bg-white text-slate-900 border border-slate-300 rounded-2xl p-4 focus:border-cyan-500 outline-none transition font-mono text-sm font-medium cursor-pointer"
               />
- </div>
+            </div>
             <div>
               <label className="block text-xs font-semibold mb-2 text-white">{t.endDate}</label>
               <input
@@ -927,7 +936,7 @@ export default function ContractGeneratorProMax() {
                       (isSelected
                         ? 'bg-gradient-to-r ' + card.color + ' border-white shadow-xl text-white scale-[1.01]'
                         : 'bg-white text-slate-800 border-slate-300 hover:bg-slate-50')
-                    }
+ }
                   >
                     <span className="text-xs font-semibold">{labelText}</span>
                     <span className={'w-5 h-5 rounded-full border flex items-center justify-center shrink-0 ' + (isSelected ? 'border-white bg-white/30' : 'border-slate-400')}>
@@ -944,7 +953,7 @@ export default function ContractGeneratorProMax() {
               <label className="block text-xs font-semibold mb-2 text-white">{t.amount}</label>
               <input
                 type="text"
- value={amount}
+                value={amount}
                 onChange={(e) => setAmount(e.target.value)}
                 placeholder={t.amountPlaceholder}
                 className="w-full bg-white text-slate-900 border border-slate-300 rounded-2xl p-4 placeholder-slate-400 focus:border-cyan-500 outline-none transition text-sm font-medium"
@@ -1005,15 +1014,14 @@ export default function ContractGeneratorProMax() {
             </div>
           </div>
         </form>
-
-        {generatedContract && (
+ {generatedContract && (
           <div className="mt-14 bg-slate-900/90 p-6 md:p-12 rounded-3xl border border-cyan-500/30 shadow-2xl backdrop-blur-xl relative">
             <div className="flex justify-between items-center mb-6">
               <h2 className="text-xl font-bold text-cyan-400 flex items-center gap-3">
                 <span>📄</span> {t.contractTitle} {!isPaid && '🔒'}
               </h2>
               <span className={'px-4 py-1.5 rounded-full text-xs font-bold ' + (isPaid ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40' : 'bg-amber-500/20 text-amber-300 border border-amber-500/40')}>
- {isPaid ? (lang === 'ru' ? '✅ Оплачено / Формат А4 Активен' : '✅ Paid / A4 Format Active') : (lang === 'ru' ? '⚠️ Драфт / Водяной знак' : '⚠ Draft Preview Mode')}
+                {isPaid ? (lang === 'ru' ? '✅ Оплачено / Формат А4 Активен' : '✅ Paid / A4 Format Active') : (lang === 'ru' ? '⚠️ Драфт / Водяной знак' : '⚠️ Draft Preview Mode')}
               </span>
             </div>
             
@@ -1073,7 +1081,7 @@ export default function ContractGeneratorProMax() {
                 <div key={item.id} className="bg-slate-950/70 border border-slate-800 p-5 rounded-2xl flex justify-between items-center text-xs md:text-sm">
                   <div>
                     <span className="font-bold text-white mr-4">{item.title}</span>
-                    <span className="text-slate-400">{item.date}</span>
+ <span className="text-slate-400">{item.date}</span>
                   </div>
                   <button
                     onClick={() => { setGeneratedContract(item.content); addToast(lang === 'ru' ? 'Контракт загружен в редактор' : 'Contract loaded into editor', 'info'); }}
@@ -1086,7 +1094,8 @@ export default function ContractGeneratorProMax() {
             </div>
           </div>
         )}
- <div className="mt-16">
+
+        <div className="mt-16">
           <h2 className="text-xs font-bold mb-6 text-cyan-400 uppercase tracking-widest">{t.reviewsHeader}</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
             {allReviews.map((rev, i) => (
@@ -1146,15 +1155,14 @@ export default function ContractGeneratorProMax() {
             <button onClick={() => setModalContent('support')} className="hover:text-cyan-400 transition cursor-pointer">{t.support}</button>
           </div>
         </footer>
-
-        {modalContent && (
+ {modalContent && (
           <div className="fixed inset-0 bg-black/80 backdrop-blur-md flex items-center justify-center p-4 z-50">
             <div className="bg-slate-900 border border-slate-700 p-8 md:p-10 rounded-3xl max-w-xl w-full shadow-2xl max-h-[85vh] overflow-y-auto">
               {modalContent === 'support' ? (
                 <div>
                   <h3 className="text-xl font-bold text-cyan-400 mb-4">{t.supportFormTitle}</h3>
                   {supportSent ? (
- <div className="bg-emerald-950/60 border border-emerald-500 text-emerald-200 p-4 rounded-2xl text-xs mb-6 text-center">
+                    <div className="bg-emerald-950/60 border border-emerald-500 text-emerald-200 p-4 rounded-2xl text-xs mb-6 text-center">
                       {lang === 'ru' ? '✅ Ваше сообщение успешно отправлено! Мы ответим на email reymax77777@gmail.com в течение 15 минут.' : '✅ Message sent successfully! We will reply within 15 minutes.'}
                     </div>
                   ) : (
@@ -1188,8 +1196,8 @@ export default function ContractGeneratorProMax() {
                 <div>
                   <h3 className="text-xl font-bold text-cyan-400 mb-4">{modalContent}</h3>
                   <div className="text-xs md:text-sm text-slate-300 mb-8 space-y-4 leading-relaxed">
-                    <p>Все процессы обработки юридических данных и платежной информации сервиса AI Freelance Contract Generator Pro Max Enterprise соответствуют строгим международным регламентам безопасности (GDPR, CCPA, PCI DSS).</p>
-                    <p>По любым юридическим или техническим вопросам обращайтесь в службу поддержки: <strong>reymax77777@gmail.com</strong></p>
+                    <p>{t.modalInfoText}</p>
+                    <p>{t.modalSupportContact} <strong>reymax77777@gmail.com</strong></p>
                   </div>
                 </div>
               )}
@@ -1197,7 +1205,7 @@ export default function ContractGeneratorProMax() {
                 onClick={() => setModalContent(null)}
                 className="w-full bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-4 rounded-2xl transition text-sm cursor-pointer shadow-lg"
               >
-                {lang === 'ru' ? 'Закрыть окно' : 'Close window'}
+                {t.closeWindowBtn}
               </button>
             </div>
           </div>
