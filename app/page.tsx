@@ -243,7 +243,29 @@ export default function ContractGeneratorProMax() {
 
   const currencySymbols = { USD: '$', EUR: '€' };
   const currencyRates = { USD: 1, EUR: 0.92 };
-const addToast = (text: string, type: 'success' | 'info' | 'warning' = 'success') => {
+ const handleDateChange = (val: string, setter: (val: string) => void) => {
+    let cleaned = val.replace(/\D/g, '');
+    if (cleaned.length > 8) cleaned = cleaned.slice(0, 8);
+    
+    let formatted = '';
+    if (cleaned.length > 0) {
+      formatted = cleaned.slice(0, 2);
+    }
+    if (cleaned.length >= 3) {
+      formatted += ' / ' + cleaned.slice(2, 4);
+    } else if (cleaned.length === 2) {
+      formatted += ' / ';
+    }
+    if (cleaned.length >= 5) {
+      formatted += ' / ' + cleaned.slice(4, 8);
+    } else if (cleaned.length === 4) {
+      formatted += ' / ';
+    }
+
+    setter(formatted);
+  };
+
+  const addToast = (text: string, type: 'success' | 'info' | 'warning' = 'success') => {
     const id = Date.now().toString();
     setToasts((prev) => [...prev, { id, text, type }]);
     setTimeout(() => {
@@ -290,13 +312,6 @@ const addToast = (text: string, type: 'success' | 'info' | 'warning' = 'success'
   const handleGenerate = (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (startDate && endDate && new Date(endDate) < new Date(startDate)) {
-      const dateErrorMsg = 'Error: Project end date cannot be earlier than start date!';
-      alert(dateErrorMsg);
-      addToast(dateErrorMsg, 'warning');
-      return;
-    }
-
     if (!isAgreed) {
       alert(t.agreementError);
       addToast(t.agreementError, 'warning');
@@ -313,8 +328,8 @@ const addToast = (text: string, type: 'success' | 'info' | 'warning' = 'success'
       
       const cityName = city.trim() ? city.trim() : '';
       
-      const startD = startDate || 'Upon signing';
-      const endD = endDate || 'Upon completion';
+      const startD = startDate || '10/15/2026';
+      const endD = endDate || '11/15/2026';
       const totalAmount = amount || '7500';
       const currSymbol = currencySymbols[currency];
 
@@ -331,10 +346,10 @@ const addToast = (text: string, type: 'success' | 'info' | 'warning' = 'success'
         '1.3. Financial transaction routing platform: ' + pMethod + '.\n\n' +
         'SECTION II. FINANCIAL TERMS AND PRICING SCHEDULE\n' +
         '2.1. Total project fee amounts to: ' + totalAmount + ' ' + currSymbol + '.\n' +
-        '2.2. Payment terms structure: ' + pTerms + '.\n' +
+ '2.2. Payment terms structure: ' + pTerms + '.\n' +
         (enablePenalty ? '2.3. Late payments incur a 0.2% daily penalty fee on the outstanding overdue amount for each calendar day of default.\n' : '') +
         (extraCheckbox ? '2.4. Parties explicitly agreed on strict revision limits: maximum of two correction iterations within the approved scope.\n\n' : '\n') +
- 'SECTION III. INTELLECTUAL PROPERTY & CONFIDENTIALITY\n' +
+        'SECTION III. INTELLECTUAL PROPERTY & CONFIDENTIALITY\n' +
         '3.1. Intellectual property rights transfer to the Client exclusively upon full project payment completion.\n' +
         '3.2. Parties agree to maintain strict confidentiality of proprietary data for 3 years post-termination.\n' +
         '3.3. Dispute resolution jurisdiction and governing law: ' + jurisdiction + '.\n\n' +
@@ -427,8 +442,7 @@ const addToast = (text: string, type: 'success' | 'info' | 'warning' = 'success'
     try {
       const html2canvas = (await import('html2canvas')).default;
       const { jsPDF } = await import('jspdf');
-
-      const canvas = await html2canvas(tempContainer, {
+ const canvas = await html2canvas(tempContainer, {
         scale: 2,
         useCORS: true,
         logging: false,
@@ -442,7 +456,8 @@ const addToast = (text: string, type: 'success' | 'info' | 'warning' = 'success'
       const pdf = new jsPDF('p', 'mm', 'a4');
       const pdfWidth = pdf.internal.pageSize.getWidth();
       const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
- let heightLeft = pdfHeight;
+
+      let heightLeft = pdfHeight;
       let position = 0;
 
       pdf.addImage(imgData, 'JPEG', 0, position, pdfWidth, pdfHeight);
@@ -465,13 +480,6 @@ const addToast = (text: string, type: 'success' | 'info' | 'warning' = 'success'
   };
   
   const handleProceedPayment = () => {
-    if (startDate && endDate && new Date(endDate) < new Date(startDate)) {
-      const dateErrorMsg = 'Error: Project end date cannot be earlier than start date!';
-      alert(dateErrorMsg);
-      addToast(dateErrorMsg, 'warning');
-      return;
-    }
-
     if (!isAgreed) {
       alert(t.agreementError);
       addToast(t.agreementError, 'warning');
@@ -542,10 +550,10 @@ const addToast = (text: string, type: 'success' | 'info' | 'warning' = 'success'
           </div>
         ))}
       </div>
-
-      <div className="absolute top-0 right-1/4 w-[600px] h-[600px] bg-cyan-500/10 rounded-full blur-[140px] pointer-events-none"></div>
+ <div className="absolute top-0 right-1/4 w-[600px] h-[600px] bg-cyan-500/10 rounded-full blur-[140px] pointer-events-none"></div>
       <div className="absolute bottom-10 left-10 w-[500px] h-[500px] bg-purple-600/10 rounded-full blur-[120px] pointer-events-none"></div>
- <div className="max-w-6xl mx-auto relative z-10">
+
+      <div className="max-w-6xl mx-auto relative z-10">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-10 border-b border-cyan-500/20 pb-6 gap-4">
           <div className="flex items-center gap-3">
             <span className="w-4 h-4 rounded-full bg-cyan-400 animate-pulse"></span>
@@ -603,14 +611,14 @@ const addToast = (text: string, type: 'success' | 'info' | 'warning' = 'success'
           <label className="block text-sm font-bold mb-6 text-cyan-400 uppercase tracking-widest">{t.pricingHeader}</label>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {pricingKeys.map((key) => {
-              const plan = t.pricingPlans[key];
+ const plan = t.pricingPlans[key];
               const isSelected = selectedPlan === key;
               return (
                 <div
                   key={key}
                   onClick={() => setSelectedPlan(key)}
                   className={
- 'p-6 rounded-3xl border transition cursor-pointer flex flex-col justify-between ' +
+                    'p-6 rounded-3xl border transition cursor-pointer flex flex-col justify-between ' +
                     (isSelected
                       ? 'bg-cyan-950/80 border-cyan-400 shadow-2xl shadow-cyan-950/60 scale-[1.02]'
                       : 'bg-slate-900/50 border-slate-800 hover:border-slate-700')
@@ -674,7 +682,7 @@ const addToast = (text: string, type: 'success' | 'info' | 'warning' = 'success'
               <select
                 value={paymentTerms}
                 onChange={(e) => setPaymentTerms(e.target.value)}
-                className="w-full bg-white text-slate-900 border border-slate-300 rounded-2xl p-4 focus:border-cyan-500 outline-none transition text-sm font-medium cursor-pointer"
+ className="w-full bg-white text-slate-900 border border-slate-300 rounded-2xl p-4 focus:border-cyan-500 outline-none transition text-sm font-medium cursor-pointer"
               >
                 {Object.entries(t.paymentMethodsList).map(([k, v]) => (
                   <option key={k} value={k}>{v}</option>
@@ -682,7 +690,8 @@ const addToast = (text: string, type: 'success' | 'info' | 'warning' = 'success'
               </select>
             </div>
           </div>
- <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div>
               <label className="block text-xs font-semibold mb-2 text-white">{t.city}</label>
               <input
@@ -696,21 +705,23 @@ const addToast = (text: string, type: 'success' | 'info' | 'warning' = 'success'
             <div>
               <label className="block text-xs font-semibold mb-2 text-white">{t.startDate}</label>
               <input
-                type="date"
-                lang="en-US"
+                type="text"
                 value={startDate}
-                onChange={(e) => setStartDate(e.target.value)}
-                className="w-full bg-white text-slate-900 border border-slate-300 rounded-2xl p-4 focus:border-cyan-500 outline-none transition font-mono text-sm font-medium cursor-pointer"
+                onChange={(e) => handleDateChange(e.target.value, setStartDate)}
+                placeholder="MM / DD / YYYY"
+                maxLength={14}
+                className="w-full bg-white text-slate-900 border border-slate-300 rounded-2xl p-4 placeholder-slate-400 focus:border-cyan-500 outline-none transition font-mono text-sm font-medium"
               />
             </div>
             <div>
               <label className="block text-xs font-semibold mb-2 text-white">{t.endDate}</label>
               <input
-                type="date"
-                lang="en-US"
+                type="text"
                 value={endDate}
-                onChange={(e) => setEndDate(e.target.value)}
-                className="w-full bg-white text-slate-900 border border-slate-300 rounded-2xl p-4 focus:border-cyan-500 outline-none transition font-mono text-sm font-medium cursor-pointer"
+                onChange={(e) => handleDateChange(e.target.value, setEndDate)}
+                placeholder="MM / DD / YYYY"
+                maxLength={14}
+                className="w-full bg-white text-slate-900 border border-slate-300 rounded-2xl p-4 placeholder-slate-400 focus:border-cyan-500 outline-none transition font-mono text-sm font-medium"
               />
             </div>
           </div>
@@ -751,7 +762,7 @@ const addToast = (text: string, type: 'success' | 'info' | 'warning' = 'success'
 
           <div>
             <label className="block text-xs font-semibold mb-3 text-white">{t.paymentHeader}</label>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+ <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {paymentCards.map((card) => {
                 const isSelected = paymentMethod === card.id;
                 const labelText = t.paymentMethods[card.key];
@@ -762,7 +773,7 @@ const addToast = (text: string, type: 'success' | 'info' | 'warning' = 'success'
                     onClick={() => setPaymentMethod(card.id)}
                     className={
                       'p-5 rounded-2xl border text-left transition flex flex-col justify-between cursor-pointer ' +
- (isSelected
+                      (isSelected
                         ? 'bg-gradient-to-r ' + card.color + ' border-white shadow-2xl text-white scale-[1.02]'
                         : 'bg-slate-900/90 text-slate-300 border-slate-700 hover:border-slate-500')
                     }
@@ -823,7 +834,7 @@ const addToast = (text: string, type: 'success' | 'info' | 'warning' = 'success'
               type="button"
               onClick={handleProceedPayment}
               className="w-full bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-white font-extrabold py-5 px-6 rounded-2xl shadow-2xl transition-all uppercase tracking-wider text-sm cursor-pointer flex items-center justify-center gap-3"
-            >
+ >
               <span>💳</span> {t.payButton} ({formatPrice(t.pricingPlans[selectedPlan].basePrice, t.pricingPlans[selectedPlan].isSub)}) {isPaid && '✅ (Paid)'}
             </button>
 
@@ -832,7 +843,7 @@ const addToast = (text: string, type: 'success' | 'info' | 'warning' = 'success'
                 type="submit"
                 disabled={isLoading}
                 className="flex-1 bg-gradient-to-r from-orange-500 via-rose-600 to-red-600 hover:from-orange-400 text-white font-extrabold py-5 px-6 rounded-2xl shadow-2xl transition-all uppercase tracking-wider text-sm cursor-pointer disabled:opacity-50"
- >
+              >
                 {isLoading ? 'Generating contract...' : t.generate}
               </button>
               <button
@@ -894,7 +905,7 @@ const addToast = (text: string, type: 'success' | 'info' | 'warning' = 'success'
                 onClick={handleDownloadPDF}
                 className={
                   'font-semibold px-6 py-3.5 rounded-xl text-sm transition shadow-lg flex items-center gap-2 cursor-pointer ' +
-                  (isPaid ? 'bg-emerald-600 hover:bg-emerald-500 text-white' : 'bg-slate-700 text-slate-400 border border-slate-600')
+ (isPaid ? 'bg-emerald-600 hover:bg-emerald-500 text-white' : 'bg-slate-700 text-slate-400 border border-slate-600')
                 }
               >
                 📑 {t.downloadPdf} {!isPaid && '🔒'}
@@ -907,7 +918,7 @@ const addToast = (text: string, type: 'success' | 'info' | 'warning' = 'success'
           <div className="mt-14 bg-slate-900/60 p-6 md:p-10 rounded-3xl border border-cyan-500/20 backdrop-blur-xl">
             <h2 className="text-lg font-bold mb-6 text-cyan-400 flex items-center gap-2">
               <span>⏱</span> {t.historyHeader}
- </h2>
+            </h2>
             <div className="space-y-4">
               {savedHistory.map((item) => (
                 <div key={item.id} className="bg-slate-950/70 border border-slate-800 p-5 rounded-2xl flex justify-between items-center text-xs md:text-sm">
@@ -971,7 +982,7 @@ const addToast = (text: string, type: 'success' | 'info' | 'warning' = 'success'
           <h2 className="text-xl font-bold mb-8 text-cyan-400">{t.faqHeader}</h2>
           <div className="space-y-6">
             {t.faqList.map((faq, i) => (
-              <div key={i} className="border-b border-slate-800 pb-6 last:border-0">
+ <div key={i} className="border-b border-slate-800 pb-6 last:border-0">
                 <h3 className="font-bold text-white text-sm md:text-base mb-2">📌 {faq.q}</h3>
                 <p className="text-xs md:text-sm text-slate-400 leading-relaxed">{faq.a}</p>
               </div>
@@ -983,7 +994,7 @@ const addToast = (text: string, type: 'success' | 'info' | 'warning' = 'success'
           <div>{t.rights}</div>
           <div className="flex gap-6">
             <button onClick={() => setModalContent(t.privacy)} className="hover:text-cyan-400 transition cursor-pointer">{t.privacy}</button>
- <button onClick={() => setModalContent(t.terms)} className="hover:text-cyan-400 transition cursor-pointer">{t.terms}</button>
+            <button onClick={() => setModalContent(t.terms)} className="hover:text-cyan-400 transition cursor-pointer">{t.terms}</button>
             <button onClick={() => setModalContent('support')} className="hover:text-cyan-400 transition cursor-pointer">{t.support}</button>
           </div>
         </footer>
@@ -1032,7 +1043,7 @@ const addToast = (text: string, type: 'success' | 'info' | 'warning' = 'success'
                     <p>All legal data processing and payment information workflows within AI Freelance Contract Generator Pro Max Enterprise comply with strict international security regulations (GDPR, CCPA, PCI DSS).</p>
                     <p>For any legal or technical inquiries, please contact support: <strong>reymax77777@gmail.com</strong></p>
                   </div>
-                </div>
+ </div>
               )}
               <button
                 onClick={() => setModalContent(null)}
