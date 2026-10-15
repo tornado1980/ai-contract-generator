@@ -96,7 +96,7 @@ const t: Translations = {
   contractorName: 'Contractor Full Name / Specialist / Sole Proprietor',
   contractorPlaceholder: 'e.g., Alex Smith (Senior Fullstack Architect)',
   city: 'Contract Signing City / Governing Jurisdiction (Optional)',
-  cityPlaceholder: 'e.g., New York, Berlin, Toronto, Kyiv (Leave empty if not needed)',
+  cityPlaceholder: 'e.g., New York, Berlin, Toronto, London (Leave empty if not needed)',
   contractType: 'Legal Contract Category and Type',
   paymentTerms: 'Payment Terms & Milestone Schedule Structure',
   startDate: 'Official Project Start Date (Optional)',
@@ -243,7 +243,7 @@ export default function ContractGeneratorProMax() {
 
   const currencySymbols = { USD: '$', EUR: '€' };
   const currencyRates = { USD: 1, EUR: 0.92 };
- const addToast = (text: string, type: 'success' | 'info' | 'warning' = 'success') => {
+const addToast = (text: string, type: 'success' | 'info' | 'warning' = 'success') => {
     const id = Date.now().toString();
     setToasts((prev) => [...prev, { id, text, type }]);
     setTimeout(() => {
@@ -354,7 +354,7 @@ export default function ContractGeneratorProMax() {
       const newHistoryItem: SavedContract = {
         id: Date.now().toString(),
         title: cType,
-        date: new Date().toLocaleDateString(),
+        date: new Date().toLocaleDateString('en-US'),
         content: fullText,
       };
       const updatedHistory = [newHistoryItem, ...savedHistory.slice(0, 4)];
@@ -442,10 +442,10 @@ export default function ContractGeneratorProMax() {
       const pdf = new jsPDF('p', 'mm', 'a4');
       const pdfWidth = pdf.internal.pageSize.getWidth();
       const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
-
-      let heightLeft = pdfHeight;
+ let heightLeft = pdfHeight;
       let position = 0;
- pdf.addImage(imgData, 'JPEG', 0, position, pdfWidth, pdfHeight);
+
+      pdf.addImage(imgData, 'JPEG', 0, position, pdfWidth, pdfHeight);
       heightLeft -= pdf.internal.pageSize.getHeight();
 
       while (heightLeft >= 0) {
@@ -483,14 +483,12 @@ export default function ContractGeneratorProMax() {
     const planSlug = selectedPlan;
 
     if (paymentMethod === 'crypto') {
-      // WhiteBIT Crypto payment gateway route
       const cryptoGatewayUrl = `/pay/crypto?plan=${planSlug}&currency=${currency}&redirect_url=${redirectUrl}`;
-    +  addToast('Redirecting to WhiteBIT crypto payment gateway...', 'info');
+      addToast('Redirecting to WhiteBIT crypto payment gateway...', 'info');
       window.location.href = cryptoGatewayUrl;
     } else {
-      // WayForPay FOP acquiring gateway route
       const wayforpayGatewayUrl = `/pay/wayforpay?plan=${planSlug}&currency=${currency}&redirect_url=${redirectUrl}`;
-+      addToast('Redirecting to WayForPay secure acquiring gateway...', 'info');
+      addToast('Redirecting to WayForPay secure acquiring gateway...', 'info');
       window.location.href = wayforpayGatewayUrl;
     }
   };
@@ -525,7 +523,7 @@ export default function ContractGeneratorProMax() {
   const allReviews = [...t.reviewsList, ...customReviews];
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-slate-950 via-purple-950 to-slate-900 text-white p-6 md:p-16 font-sans relative overflow-hidden">
+    <main className="min-h-screen bg-gradient-to-br from-slate-950 via-purple-950 to-slate-900 text-white p-6 md:p-16 font-sans relative overflow-hidden" lang="en">
       <div className="fixed top-6 right-6 z-50 space-y-3 pointer-events-none">
         {toasts.map((toast) => (
           <div
@@ -699,6 +697,7 @@ export default function ContractGeneratorProMax() {
               <label className="block text-xs font-semibold mb-2 text-white">{t.startDate}</label>
               <input
                 type="date"
+                lang="en-US"
                 value={startDate}
                 onChange={(e) => setStartDate(e.target.value)}
                 className="w-full bg-white text-slate-900 border border-slate-300 rounded-2xl p-4 focus:border-cyan-500 outline-none transition font-mono text-sm font-medium cursor-pointer"
@@ -708,6 +707,7 @@ export default function ContractGeneratorProMax() {
               <label className="block text-xs font-semibold mb-2 text-white">{t.endDate}</label>
               <input
                 type="date"
+                lang="en-US"
                 value={endDate}
                 onChange={(e) => setEndDate(e.target.value)}
                 className="w-full bg-white text-slate-900 border border-slate-300 rounded-2xl p-4 focus:border-cyan-500 outline-none transition font-mono text-sm font-medium cursor-pointer"
