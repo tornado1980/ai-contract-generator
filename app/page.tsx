@@ -192,9 +192,9 @@ const t: Translations = {
     }
   ],
   reviewsList: [
-    { name: 'Dmitry Orekhov', role: 'Senior React Developer', text: 'I use this generator for contracts with US clients. Code transfer clauses work flawlessly.', rating: '⭐⭐⭐⭐⭐' },
-    { name: 'Kristina Zakharova', role: 'Lead UI/UX Designer', text: 'Revision limits saved me from endless client tweaks. Huge thanks to the creators!', rating: '⭐⭐⭐⭐⭐' },
-    { name: 'Igor Vasiliev', role: 'DevOps Engineer', text: 'Very convenient to switch currencies to euros and dollars in one click for various international projects.', rating: '⭐⭐⭐⭐⭐' },
+    { name: 'David Miller', role: 'Senior React Developer', text: 'I use this generator for contracts with US clients. Code transfer clauses work flawlessly.', rating: '⭐⭐⭐⭐⭐' },
+    { name: 'Sarah Jenkins', role: 'Lead UI/UX Designer', text: 'Revision limits saved me from endless client tweaks. Huge thanks to the creators!', rating: '⭐⭐⭐⭐⭐' },
+    { name: 'Alex Turner', role: 'DevOps Engineer', text: 'Very convenient to switch currencies to euros and dollars in one click for various international projects.', rating: '⭐⭐⭐⭐⭐' },
   ],
 };
 
