@@ -326,16 +326,16 @@ export default function ContractGeneratorProMax() {
       const client = clientName || 'Client Corp Enterprise Max';
       const contractor = contractorName || 'Specialist Contractor Pro Lead';
       
-      const cityName = city.trim() ? city.trim() : '';
+      const cityName = city.trim() ? city.trim() : '[          ]';
       
-      const startD = startDate || '10/15/2026';
-      const endD = endDate || '11/15/2026';
+      const startD = startDate.trim() ? startDate.trim() : '[        ]';
+      const endD = endDate.trim() ? endDate.trim() : '[        ]';
       const totalAmount = amount || '7500';
       const currSymbol = currencySymbols[currency];
 
       let fullText = 
         'MASTER PROFESSIONAL SERVICES AGREEMENT № 2026/ENTERPRISE-MAX\n' +
-        (cityName ? 'City: ' + cityName + '                                        ' : '') + 'Date: ' + startD + '\n\n' +
+        'Jurisdiction: ' + cityName + ' | Date: ' + startD + '\n\n' +
         'Client: ' + client + ', on the one hand, and\n' +
         'Contractor: ' + contractor + ', on the other hand, collectively referred to as the Parties, hereby enter into this Agreement:\n\n' +
         'SECTION I. SUBJECT MATTER AND SCOPE OF WORK\n' +
@@ -369,7 +369,7 @@ export default function ContractGeneratorProMax() {
       const newHistoryItem: SavedContract = {
         id: Date.now().toString(),
         title: cType,
-        date: new Date().toLocaleDateString('en-US'),
+        date: startD,
         content: fullText,
       };
       const updatedHistory = [newHistoryItem, ...savedHistory.slice(0, 4)];
@@ -438,11 +438,10 @@ export default function ContractGeneratorProMax() {
     tempContainer.innerText = contractText;
     
     document.body.appendChild(tempContainer);
-
-    try {
+ try {
       const html2canvas = (await import('html2canvas')).default;
       const { jsPDF } = await import('jspdf');
- const canvas = await html2canvas(tempContainer, {
+      const canvas = await html2canvas(tempContainer, {
         scale: 2,
         useCORS: true,
         logging: false,
@@ -542,7 +541,7 @@ export default function ContractGeneratorProMax() {
                 ? 'bg-rose-950/90 border-rose-500 text-rose-200'
                 : toast.type === 'info'
                 ? 'bg-blue-950/90 border-blue-500 text-blue-200'
-                : 'bg-emerald-950/90 border-emerald-500 text-emerald-200')
+ : 'bg-emerald-950/90 border-emerald-500 text-emerald-200')
             }
           >
             <span>{toast.type === 'warning' ? '⚠️' : toast.type === 'info' ? 'ℹ️' : '✨'}</span>
@@ -550,7 +549,8 @@ export default function ContractGeneratorProMax() {
           </div>
         ))}
       </div>
- <div className="absolute top-0 right-1/4 w-[600px] h-[600px] bg-cyan-500/10 rounded-full blur-[140px] pointer-events-none"></div>
+
+      <div className="absolute top-0 right-1/4 w-[600px] h-[600px] bg-cyan-500/10 rounded-full blur-[140px] pointer-events-none"></div>
       <div className="absolute bottom-10 left-10 w-[500px] h-[500px] bg-purple-600/10 rounded-full blur-[120px] pointer-events-none"></div>
 
       <div className="max-w-6xl mx-auto relative z-10">
@@ -608,10 +608,10 @@ export default function ContractGeneratorProMax() {
         </div>
 
         <div className="mb-14 bg-slate-900/80 p-6 md:p-10 rounded-3xl border border-cyan-500/20 shadow-2xl backdrop-blur-xl">
-          <label className="block text-sm font-bold mb-6 text-cyan-400 uppercase tracking-widest">{t.pricingHeader}</label>
+ <label className="block text-sm font-bold mb-6 text-cyan-400 uppercase tracking-widest">{t.pricingHeader}</label>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {pricingKeys.map((key) => {
- const plan = t.pricingPlans[key];
+              const plan = t.pricingPlans[key];
               const isSelected = selectedPlan === key;
               return (
                 <div
@@ -677,12 +677,12 @@ export default function ContractGeneratorProMax() {
                 ))}
               </select>
             </div>
-            <div>
+ <div>
               <label className="block text-xs font-semibold mb-2 text-white">{t.paymentTerms}</label>
               <select
                 value={paymentTerms}
                 onChange={(e) => setPaymentTerms(e.target.value)}
- className="w-full bg-white text-slate-900 border border-slate-300 rounded-2xl p-4 focus:border-cyan-500 outline-none transition text-sm font-medium cursor-pointer"
+                className="w-full bg-white text-slate-900 border border-slate-300 rounded-2xl p-4 focus:border-cyan-500 outline-none transition text-sm font-medium cursor-pointer"
               >
                 {Object.entries(t.paymentMethodsList).map(([k, v]) => (
                   <option key={k} value={k}>{v}</option>
@@ -759,10 +759,9 @@ export default function ContractGeneratorProMax() {
               />
             </div>
           </div>
-
-          <div>
+ <div>
             <label className="block text-xs font-semibold mb-3 text-white">{t.paymentHeader}</label>
- <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {paymentCards.map((card) => {
                 const isSelected = paymentMethod === card.id;
                 const labelText = t.paymentMethods[card.key];
@@ -1000,7 +999,7 @@ export default function ContractGeneratorProMax() {
         </footer>
 
         {modalContent && (
-          <div className="fixed inset-0 bg-black/80 backdrop-blur-md flex items-center justify-center p-4 z-50">
+          <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 z-50">
             <div className="bg-slate-900 border border-slate-700 p-8 md:p-10 rounded-3xl max-w-xl w-full shadow-2xl max-h-[85vh] overflow-y-auto">
               {modalContent === 'support' ? (
                 <div>
